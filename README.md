@@ -76,7 +76,7 @@ cd /path/to/your/project
 mkdir -p .claude/skills/seedance
 
 # Copy the skill file
-cp /path/to/seedance-creator/.claude/skills/seedance/SKILL.md .claude/skills/seedance/SKILL.md
+cp /path/to/seedance_creator/.claude/skills/seedance/SKILL.md .claude/skills/seedance/SKILL.md
 ```
 
 3. **Install and login to dreamina CLI (optional but recommended)**

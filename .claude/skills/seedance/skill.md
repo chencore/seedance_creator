@@ -1,7 +1,26 @@
 ---
 name: seedance-creator
 description: This skill should be used when the user asks to "generate video prompts", "create Seedance prompts", "write video descriptions", mentions "Seedance", "seedance", "即梦", "即梦平台", "视频提示词", "视频生成", "AI视频", "短剧", "广告视频", "视频延长", "生成图片", "文生图", "图生图", "图生视频", "文生视频", or discusses video prompt engineering, AI video generation, or Seedance 2.0 workflows. It also handles requests to create, edit, or manipulate images and videos using the dreamina CLI tool.
-version: 5.0.0
+version: 5.0.1
+
+# 安全须知
+
+## 前置要求
+
+**在启用此 Skill 前，请确保：**
+
+1. **dreamina CLI 已安装** — 运行 `dreamina --version` 确认二进制文件存在
+2. **已通过浏览器登录** — `dreamina login` 会打开浏览器进行 OAuth 认证，凭证由 CLI 自身管理（存储在 `~/.dreamina` 或用户目录）
+3. **了解本地文件访问** — 此 Skill 可能会读取本地图片/视频文件（用于图生图、图生视频），避免在包含敏感文件的目录中运行
+
+**如果无法确认上述要求，请仅使用提示词生成功能（在网页端手动执行），不要启用 CLI 执行。**
+
+## 安全特性
+
+- **无额外凭证存储** — 认证通过官方 CLI 的浏览器 OAuth 完成，不涉及手动输入的 API Token
+- **仅读本地媒体** — 仅当用户明确提供文件路径时读取，且仅用于上传到即梦平台
+- **用户可控执行** — 建议通过 `/seedance` 命令显式触发，避免自动激活
+- **可中断执行** — 所有生成任务可随时中断，已生成的文件保留在本地
 ---
 
 # Seedance Creator — 即梦创作助手
@@ -27,13 +46,34 @@ version: 5.0.0
 
 ## 快速检查
 
-执行任何生成任务前，务必检查登录状态：
+**第一步：验证二进制文件存在**
+
+执行任何生成任务前，必须先确认 `dreamina` CLI 已安装：
+
+```bash
+dreamina --version
+```
+
+如果返回 `command not found` 或类似错误，**必须先安装 CLI**：
+
+```bash
+curl -fsSL https://jimeng.jianying.com/cli | bash
+```
+
+**第二步：检查登录状态**
+
+确认二进制存在后，再检查登录状态：
 
 ```bash
 dreamina user_credit
 ```
 
 返回 JSON 包含 `total_credit` 字段即表示登录成功。
+
+**如果未安装 CLI 或未登录，必须提示用户：**
+- 告知用户缺少 `dreamina` CLI 或未登录
+- 提供安装/登录命令
+- 说明也可以使用纯提示词模式（在网页端手动执行）
 
 ## 核心命令
 
@@ -80,6 +120,8 @@ dreamina text2video \
 
 ### 3. 图生图（image2image）
 
+**安全提示**：此命令会上传本地图片到即梦平台。确保图片不包含敏感信息。
+
 ```bash
 dreamina image2image \
   --images ./input.png \
@@ -98,6 +140,8 @@ dreamina image2image \
 - 图片链接：从 `result_json.images[].image_url` 提取
 
 ### 4. 图生视频（image2video）
+
+**安全提示**：此命令会上传本地图片到即梦平台。确保图片不包含敏感信息。
 
 ```bash
 dreamina image2video \
@@ -139,13 +183,17 @@ dreamina list_task --gen_status=success
 
 ### 7. 登录命令
 
+**认证说明**：登录通过浏览器 OAuth 进行，凭证由 CLI 自身存储，不涉及手动输入的密钥。
+
 ```bash
-# 标准登录
+# 标准登录（自动打开浏览器）
 dreamina login
 
 # 调试模式登录
 dreamina login --debug
 ```
+
+登录后凭证存储在 `~/.dreamina` 或用户目录配置文件，不以明文存储在项目中。
 
 ---
 
@@ -223,6 +271,10 @@ dreamina login --debug
 ---
 
 # 第三部分：执行流程
+
+**执行前提**：每次执行 CLI 命令前，必须先运行 `dreamina --version` 验证二进制存在。
+
+**用户控制**：建议通过 `/seedance` 命令显式触发，而非依赖关键词自动激活。
 
 ## 图片生成流程
 

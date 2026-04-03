@@ -67,6 +67,18 @@ Skill 内置了专业的词汇库：
 
 - 已安装并登录 [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code)
 - 拥有 [即梦平台](https://jimeng.jianying.com) (Seedance 2.0) 账号
+- **dreamina CLI**（可选，但推荐使用 CLI 功能时必须安装）
+
+### 安全须知
+
+使用此 Skill 前请注意：
+
+1. **验证 dreamina CLI** — 使用 `dreamina --version` 确认已安装
+2. **认证方式** — `dreamina login` 通过浏览器 OAuth 认证，凭证由 CLI 自身存储在 `~/.dreamina` 配置目录，不涉及手动 API Token
+3. **本地文件访问** — 图生图/图生视频功能会上传本地图片/视频到即梦平台，请确保文件不包含敏感信息
+4. **建议显式触发** — 通过 `/seedance` 命令显式调用，而非依赖关键词自动激活
+
+> **提示**：如无法安装 dreamina CLI，仍可使用纯提示词模式（生成后手动复制到网页端执行）
 
 ### 安装步骤
 
