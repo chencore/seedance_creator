@@ -73,7 +73,7 @@ Skill 内置了专业的词汇库：
 1. **克隆仓库**
 
 ```bash
-git clone https://github.com/chencore/seedance-creator.git
+git clone https://github.com/chencore/seedance_creator.git
 ```
 
 2. **将 Skill 文件复制到你项目的 `.claude/skills/` 目录**
@@ -193,7 +193,7 @@ dreamina query_result --submit_id=<submit_id> --download_dir=./downloads
 **输入：**
 
 ```
-帮我写一段仙侠战斗的视频，15秒，横屏
+帮我生成一段仙侠战斗的视频，15秒，横屏
 ```
 
 **输出（2-3 个版本之一）：**

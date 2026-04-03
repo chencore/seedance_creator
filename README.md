@@ -63,7 +63,7 @@ The skill ships with curated vocabularies for:
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/songguoxs/seedance-creator.git
+git clone git clone https://github.com/chencore/seedance-creator.git
 ```
 
 2. **Copy the skill into your project's `.claude/skills/` directory**
