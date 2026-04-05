@@ -57,7 +57,10 @@ dreamina --version
 如果返回 `command not found` 或类似错误，**必须先安装 CLI**：
 
 ```bash
-curl -fsSL https://jimeng.jianying.com/cli | bash
+# Install dreamina CLI manually:
+# 1. Download from official site: https://jimeng.jianying.com/cli
+# 2. Move binary to a directory in your PATH
+# 3. Run: dreamina --version to verify
 ```
 
 **第二步：检查登录状态**

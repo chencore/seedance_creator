@@ -85,7 +85,13 @@ dreamina CLI enables direct generation from command line without copying prompts
 
 ```bash
 # Install dreamina CLI
-curl -fsSL https://jimeng.jianying.com/cli | bash
+# 1. Download the official installer from Jimeng AI website
+#    Visit: https://jimeng.jianying.com/cli
+#    Download the binary for your platform (macOS/Linux)
+# 2. Install and ensure it's in your PATH
+#    Linux/macOS: sudo mv dreamina /usr/local/bin/ && chmod +x /usr/local/bin/dreamina
+# 3. Verify installation
+dreamina --version
 
 # Login (opens browser automatically)
 dreamina login
